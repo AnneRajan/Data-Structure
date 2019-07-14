@@ -37,7 +37,7 @@ int main()
 void merge(int arr[], int low, int mid, int high)
 {
     int c[100]; 
-	int i=low, j=mid+1, k=low;
+	int i=low, j=mid+1, k=high;
 	while((i<=mid) && (j<=high))
 	{
         if(arr[i] < arr[j])
