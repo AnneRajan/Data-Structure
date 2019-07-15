@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+  struct node* link;
+  int data;
+};
+struct node* top=NULL;
+void push(void);
+void pop(void);
+void display(void);
+
+void main()
+{
+    int choice;
+    
+    while(choice!=4)
+    {
+        printf("\n\t Implementation of stack using linked list\n");
+        printf("\n\t1.Push \n\t2.Pop \n\t3.Display \n\t4.Exit\n\t");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                display();
+                break;
+            }
+            case 4:
+            {
+                printf("\n EXITED");
+                break;
+            }
+            default:
+                printf("\n Invalid choice\n (Choose from 1-4)");
+        }
+    }
+}
+
+void push()
+{
+   struct node* temp;
+   temp=top;
+   temp=(struct node*)malloc(sizeof(struct node));
+ 
+    printf("\n Enter the node data:");
+    scanf("%d", &temp->data);
+    top=NULL;
+    temp->link=top;
+    top=temp;
+   
+}
+
+void pop()
+{
+    struct node* temp;
+    temp=top;
+    if(temp==NULL)
+    {
+        printf("\n Linked List Empty!!");
+    }
+    else
+    {
+        printf("Deleted element:%d", temp->data);
+        top=top->link;
+        temp->link=NULL;
+        free(temp);
+    }
+    
+}
+
+void display()
+{
+    struct node* temp;
+    temp=top;
+    if(temp==NULL)
+    {
+        printf("\n Linked list Empty!! \n");
+    }
+    else{
+        printf("Printing Stack elements \n"); 
+        while(temp!=NULL)
+        {
+            printf("%d->", temp->data);
+            temp=temp->link;
+        }
+    }
+    
+}
+
+
