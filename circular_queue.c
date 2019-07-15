@@ -88,22 +88,26 @@ void deQueue()
 }
 void display()
 {
-     if(front == -1)
-      printf("\nCircular Queue is Empty!!!\n");
-   else{
-      int i = front;
-      printf("\nCircular Queue Elements are : \n");
-      if(front <= rear){
-	 while(i <= rear)
-	    printf("%d\t",cQueue[i++]);
-      }
-      else
-     {
-	 while(i <= SIZE - 1)
-	    printf("%d\t", cQueue[i++]);
-	 i = 0;
-	 while(i <= rear)
-	    printf("%d\t",cQueue[i++]);
-      }
-   }
+    int i,j;
+    if(front==0&&rear==-1)
+    {
+        printf("Queue is underflow\n");
+       
+    }
+    if(front>rear)
+    {
+        for(i=0;i<=rear;i++)
+            printf("\t%d",cQueue[i]);
+        for(j=front;j<=max-1;j++)
+            printf("\t%d",,cQueue[j]);
+       
+    }
+    else
+    {
+        for(i=front;i<=rear;i++)
+        {
+            printf("\t%d",,cQueue[i]);
+        }
+    }
+    
 }
