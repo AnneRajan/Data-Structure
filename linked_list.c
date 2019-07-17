@@ -1,43 +1,47 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct node{
-    struct node* link;
+
+struct node
+{
     int data;
+    struct node* left;
+    struct node* right;
 };
 struct node* root=NULL;
-int len;
 
-void insertatend(void);
 void insertatbegin(void);
-void insertafter(void);
+void insertatend(void);
+void insertatspecific(void);
 int length(void);
 void display(void);
 void deleteatbegin(void);
+void deleteatend(void);
 void delete(void);
+
 void main()
 {
     int choice;
-    while(choice!=8)
+    while(choice!=9)
     {
-        printf("\n\t LINKED LIST \n");
-        printf("\n\t1.Insert at end \n\t2.Insert at beginning \n\t3.Insert at after \n\t4.Length of the list \n\t5.Display \n\t6.Delete at begin \n\t7.Delete at specific \n\t8.EXIT \n\n");
-        printf("\n Enter your choice:");
+        printf("\n *****DOUBLY LINKED LIST*****\n");
+        printf("\n\t1.INSERT AT BEGIN \n\t2.INSERT AT END \n\t3.INSERT SPECIFIC  \n\t4.LENGTH \n\t5.DISPLAY \n\t6.DELETE AT BEGIN \n\t7.DELETE AT END \n\t8.DELETE AT SPECIFIC  \n\t9.EXIT");
+        printf("\n Enter yur choice:");
         scanf("%d",&choice);
         switch(choice)
         {
             case 1:
             {
-                insertatend();
+                insertatbegin();
                 break;
             }
             case 2:
             {
-                insertatbegin();
+                insertatend();
                 break;
             }
             case 3:
             {
-                insertafter();
+                insertatspecific();
                 break;
             }
             case 4:
@@ -48,6 +52,7 @@ void main()
             case 5:
             {
                 display();
+                break;
             }
             case 6:
             {
@@ -56,119 +61,172 @@ void main()
             }
             case 7:
             {
-                delete();
+                deleteatend();
                 break;
             }
             case 8:
+            {
+                delete();
+                break;
+            }
+            case 9:
             {
                 printf("\n EXITED");
                 break;
             }
             default:
-            {
-                printf("\n Invalid Choice");
-            }
+                printf("\n Invalid Choice!!");
         }
     }
-    
-    
 }
 
-
-void insertatend()
-{
-    struct node* temp;
-    temp=(struct node*)malloc(sizeof(struct node));
-    printf("\n Enter the node data:");
-    scanf("%d", &temp->data);
-    temp->link=NULL;
-    if(root==NULL)
-    {
-        root=temp;
-    }
-    else
-    {
-        struct node* p;
-        p=root;
-        while(p->link!=NULL)
-        {
-            p=p->link;
-        }
-        p->link=temp;
-    }
-}
 void insertatbegin()
 {
     struct node* temp;
-    temp=(struct node*)malloc(sizeof(struct node));
+    temp = (struct node*)malloc(sizeof(struct node));
     printf("\n Enter the node data:");
-    scanf("%d", &temp->data);
-    temp->link=NULL;
+    scanf("%d",&temp->data);
+    temp->left=NULL;
+    temp->right=NULL;
     if(root==NULL)
     {
         root=temp;
     }
-    else{
-        temp->link=root;
+    else
+    {
+        temp->right=root;
+        root->left=temp;
         root=temp;
     }
 }
-void insertafter()
+void insertatend()
 {
-    struct node* p;
     struct node* temp;
-    int i=1,loc,len;
-    printf("\n Enter the location you want to insert:");
-    scanf("%d", &loc);
-    len=length();
-    if(loc>len)
+    struct node* p;
+    temp=(struct node*)malloc(sizeof(struct node));
+    printf("\n Enter the node data:");
+    scanf("%d",&temp->data);
+    temp->left=NULL;
+    temp->right=NULL;
+    if(root==NULL)
     {
-        printf("\n Invalid location");
-        printf("\n Currently linked list is having % nodes",len);
+        root=temp;
     }
     else
     {
         p=root;
-        while(i<loc)
+        while(p->right!=NULL)
         {
-            p=p->link;
-            i++;
+            p=p->right;
+            p->right=temp;
+            temp->right=NULL;
+            temp->left=p;
+            
         }
-        temp=(struct node*)malloc(sizeof(struct node));
-        printf("\n Enter the node data:");
-        scanf("%d", &temp->data);
-        temp->link=NULL;
-        temp->link=p->link;
-        p->link=temp;
+        
     }
-   
-    
 }
 int length()
 {
     int count=0;
-    struct node *temp;
+    struct node* temp;
     temp=root;
     while(temp!=NULL)
     {
-        temp=temp->link;
         count++;
+        temp=temp->right;
     }
+    
     printf("\n Length of the linked list is %d", count);
 }
+
 void display()
 {
     struct node* temp;
     temp=root;
     if(temp==NULL)
     {
-        printf("\n Linked list Empty!! \n");
+        printf("\n Linked List is Empty!!");
     }
-    while(temp!=NULL)
+    else
     {
-        printf("%d->", temp->data);
-        temp=temp->link;
+        printf("\n Elements in the Linked list are: ");
+        while(temp!=NULL)
+        {
+            printf("%d->", temp->data);
+            temp=temp->right;
+        }
     }
+}
+void insertatspecific()
+{
+    int loc,len,i;
+    struct node* temp;
+    struct node* p;
+     p=root;
+    printf("\n Enter the location to add a node:");
+    scanf("%d",&loc);
+    len=length();
+    if(loc>len)
+    {
+        printf("\n Invalid Location");
+        printf("\n Currently location is %d",len);
+    }
+    else
+    {
+        temp=(struct node*)malloc(sizeof(struct node));
+        printf("\n Enter the node data:");
+        scanf("%d", &temp->data);
+        temp->left=NULL;
+        temp->right=NULL;
+       
+        while(i<loc)
+        {
+            p=p->right;
+            i++;
+        }
+        temp->right=p->right;
+        p->right->left=temp;
+        temp->left=p;
+        p->right=temp;
+    }
+}
+
+void deleteatbegin()
+{
+    struct node* temp;
+    temp=root;
+    if(temp==NULL)
+    {
+        printf("\n Linked List is Empty!!");
+    }
+    else
+    {
+        root=temp->right;
+        temp->right=NULL;
+        free(temp);
+    }
+}
+
+void deleteatend()
+{
+    struct node* temp;
+    
+    if(root==NULL)
+    {
+        printf("\n Linked list is Empty!!");
+    }
+    else
+    {
+        temp=root;
+        while(temp->right!=NULL)
+        {
+            temp=temp->right;
+            temp->left->right=NULL;
+            free(temp);
+        }
+    }
+    
 }
 
 void delete()
@@ -187,37 +245,24 @@ void delete()
     else if(loc==1)
     {
         temp=root;
-        root=temp->link;
-        temp->link=NULL;
+        root=temp->right;
+        temp->right=NULL;
         free(temp);
     }
     else
     {
-        struct node* p=root,*q;
+        struct node* p=root;
+        struct node* q;
         while(i<loc-1)
         {
-           p=p->link;
+           p=p->right;
            i++;
         }
-        q = p->link;
-        p->link=q->link;
-        q->link=NULL;
+        q=p->right;
+        p->right=q->right;
+        q->right->left=p;
+        q->left=NULL;
+        q->right=NULL;
         free(q);
-    }
-}
-
-void deleteatbegin()
-{
-    struct node* temp;
-    temp=root;
-    if(temp==NULL)
-    {
-        printf("\n Linked List is Empty!!");
-    }
-    else
-    {
-        root=temp->link;
-        temp->link=NULL;
-        free(temp);
     }
 }
