@@ -14,7 +14,9 @@ void main()
     scanf("%d", &n);
     while(choice!=4)
     {
+        printf("\n ***QUEUE IMPLEMENTATION ***\n");
         printf("\n\t 1.INSERT \n\t 2.DELETE \n\t 3.DISPLAY \n\t 4.EXIT \n");
+        printf("\n Enter your choice:");
         scanf("%d", &choice);
         switch(choice)
         {
@@ -32,9 +34,11 @@ void main()
                 
             case 4:
                 printf("\n EXITED");
+                break;
+                
                 
             default:
-                printf("Invalid choice\n");
+                printf("\n Invalid choice\n");
         }
     }
 }
@@ -43,60 +47,47 @@ void insert()
 {
    if(rear==n)
    {
-       printf("Queue is Full!!");
+       printf("\n QUEUE IS FULL");
    }
    else
    {
-           printf("\n Enter the element you want to insert:\n");
-           scanf("%d", &item);
-           queue_arr[rear]=item;
-           rear++;
-           printf("Element %d inserted in the queue",item);
-      
+       printf("\n Enter the element in the queue:");
+       scanf("%d",&item);
+       queue_arr[rear]=item;
+       rear++;
+       
+       printf("\n Inserted element:%d",item);
    }
 }
-
-void delete()
+void delete(void)
 {
     if(front==rear)
     {
-        printf("Queue is empty!!");
+        printf("\n QUEUE IS EMPTY!!");
     }
     else
     {
-        printf("Deleted element is: %d",queue_arr[front]);
+        printf("\n Deleted Element:%d",queue_arr[front]);
         for(i=0;i<rear-1;i++)
         {
             queue_arr[i]=queue_arr[i+1];
-            
         }
-        rear--;                 //changing the rear position 
-        
+        rear--;
     }
 }
-
-void display()
+void display(void)
 {
     if(front==rear)
     {
-        printf("Queue is empty!!");
+        printf("\n QUEUE IS EMPTY ");
     }
     else
     {
-        printf("\n Queue Displayed");
-        for(i=front; i<rear;i++)
+        printf("\n ELEMENTS IN THE QUEUE:");
+        for(i=front;i<rear;i++)
         {
-            printf("%d\t", queue_arr[i]);
+            printf("%d\t",queue_arr[i]);
         }
     }
+    
 }
-
-
-
-
-
-
-
-
-
-
