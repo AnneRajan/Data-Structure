@@ -1,21 +1,19 @@
 #include<stdio.h>
- 
-int stack[100],choice,n,top,item,i;
-void push(void);
-void pop(void);
-void display(void);
-void peek(void);
+int stack[10],n,i,top=-1, choice,element;
+void push();
+void pop();
+void display();
+void peek();
 int main()
 {
-    //clrscr();
-    top=-1;
     printf("\n Enter the size of STACK[MAX=100]:");
     scanf("%d",&n);
-    printf("\n\t STACK OPERATIONS USING ARRAY");
-    printf("\n\t--------------------------------");
-    printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.PEEK  \n\t 5.EXIT");
+    
     while(choice!=5)
     {
+        printf("\n\t STACK OPERATIONS USING ARRAY");
+        printf("\n\t--------------------------------");
+        printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.PEEK  \n\t 5.EXIT");
         printf("\n Enter the Choice:");
         scanf("%d",&choice);
         switch(choice)
@@ -56,57 +54,55 @@ int main()
 }
 void push()
 {
-    if(top>=n-1)
+    if(top>n)
     {
-        printf("\n\tSTACK is over flow");
-         
+        printf("\n STACK IS FULL!!");
     }
     else
     {
-        printf(" Enter a value to be pushed:");
-        scanf("%d",&item);
+        printf("\n Enter the element you want to push into the stack:");
+        scanf("%d", &element);
         top++;
-        stack[top]=item;
-        printf("\n Pushed element at stack: %d", item);
+        stack[top]=element;
+        printf("\n Pushed element into the stack:%d ",stack[top]);
     }
 }
 void pop()
 {
     if(top<=-1)
     {
-        printf("\n\t Stack is under flow");
+        printf("\n STACK IS EMPTY!!");
     }
     else
     {
-        printf("\n\t The popped elements is %d",stack[top]);
+        printf("Popped Element: %d",stack[top]);
         top--;
-    }
-}
-void display()
-{
-    if(top>=0)
-    {
-        printf("\n The elements in STACK \n");
-        for(i=top; i>=0; i--)
-            printf("\n%d",stack[i]);
-        printf("\n Press Next Choice");
-    }
-    else
-    {
-        printf("\n The STACK is empty");
     }
     
 }
-
+void display()
+{
+    if(top<=-1)
+    {
+        printf("\n STACK IS EMPTY!!");
+    }
+    else
+    {
+        printf("\n Elements pushed into the stack:\n");
+        for(i=top;i>=0;i--)
+        {
+            printf("%d\n",stack[i]);
+        }
+    }
+}
 void peek()
 {
     if(top<=-1)
     {
-        printf("\n Stack is Underflow");
+        printf("\n STACK IS EMPTY!!");
     }
     else
     {
-        printf("Element found: %d",stack[top]);
+       printf("\n Top element in the stack: %d", stack[top]);
     }
-    
 }
